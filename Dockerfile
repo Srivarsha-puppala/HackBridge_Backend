@@ -7,15 +7,11 @@ WORKDIR /usr/src/app
 # Copy package.json and package-lock.json to install dependencies
 COPY package*.json ./
 
-# Install only production dependencies for a lightweight image
+# Install dependencies
 RUN npm install
 
-# Copy the rest of your backend code
+# Copy the rest of your backend code (Secret files will map automatically at runtime)
 COPY . .
-
-# COPY THE FIREBASE KEY SPECIFICALLY:
-# This ensures Docker explicitly grabs your key file and places it inside the container
-COPY firebase-key.json ./firebase-key.json
 
 # Expose the port your Express app listens on
 EXPOSE 5000
